@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TstBrowserWinUI3 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TstBrowserWinUI3 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
