@@ -17,6 +17,8 @@ using Microsoft.Web.WebView2.Core;
 using System.Diagnostics;
 using Microsoft.UI.Input;
 using System.Threading;
+using System.Xml;
+using Windows.Storage.AccessCache;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -39,13 +41,32 @@ namespace TstBrowserWinUI3
         {
             WebsiteChoosing.Content = "Choose";
             Flyout WebsiteChoosingOpt = new();
-            Button button = new();
-            button.VerticalAlignment = VerticalAlignment.Center;
-            button.HorizontalAlignment = HorizontalAlignment.Center;
-            button.Background = new SolidColorBrush(Colors.Gold);
+            StackPanel Panel = new();
+            string CurrentDirPath = Windows.ApplicationModel.Package.Current.InstalledPath;
+            XmlDocument XmlData = new XmlDocument();
+            //XmlData.Load(Environment.CurrentDirectory.FirstOrDefault())
+
+            foreach (string item in Directory.EnumerateFiles(CurrentDirPath + "/Assets","*.xml"))
+            {
+                Button b = new()
+                {
+                    Content = item.ToString(),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Background = new SolidColorBrush(Colors.Gray)
+                };
+                Panel.Children.Insert(Panel.Children.Count,b);
+            }
+            WebsiteChoosingOpt.Content = Panel;
+            /*
+            Button button = new() {
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(Colors.Gray)
+            };
             WebsiteChoosingOpt.Content = button; 
+            */
             WebsiteChoosing.Flyout = WebsiteChoosingOpt;
-            WebsiteChoosing.Click += delegate (SplitButton sender, SplitButtonClickEventArgs e) { NavigateUrl("https://www.google.com"); };
         }
         #region Browser
         async void BrowserControl()
@@ -80,6 +101,11 @@ namespace TstBrowserWinUI3
         }
         #endregion
         #region UrlBar
+        private void UrlBar_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
         private void UrlBar_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -88,24 +114,14 @@ namespace TstBrowserWinUI3
                 if (UrlBar.Text.StartsWith("https"))
                 {
                     NavigateUrl(UrlBar.Text);
+                }else {
+                    string ProcessedString = UrlBar.Text.Replace(' ', '+');
+                    NavigateUrl("https://www.bing.com/search?q=" + ProcessedString); 
                 }
-                switch (UrlBar.Text)
-                {
-                    case "a":
-                        Debug.WriteLine("a");
-                        break;
-                    case "b":
-                        Debug.WriteLine("b");
-                        break;
-                    default:
-                        Debug.WriteLine("Not a");
-                        break;
-                }
-                NavigateUrl(UrlBar.Text);
             }
         }
         #endregion
-
+        #region AppBar & AppBar events
         private async void Back(object sender, RoutedEventArgs e)
         {
             await Browser1.EnsureCoreWebView2Async();
@@ -131,11 +147,27 @@ namespace TstBrowserWinUI3
             Frame.Name = Browser1.CoreWebView2.DocumentTitle;
         }
 
+        private void WebsiteChoosing_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            /*
+            WebsiteChoosing.Opacity = 1;
+            WebsiteChoosing.Background = new SolidColorBrush(Colors.DarkBlue);
+            OutPut.Text = "Entered";
+            WebsiteChoosing.PointerExited += delegate (object sender, PointerRoutedEventArgs e) {
+                WebsiteChoosing.Opacity = 1;
+                WebsiteChoosing.Background = new SolidColorBrush(Colors.DarkSlateGray);
+                OutPut.Text = string.Empty;
+            };
+            */
+        }
+
         private int count = 0;
         private void WebsiteChoosing_Click(SplitButton sender, SplitButtonClickEventArgs args)
         {
             count++;
             OutPut.Text=count.ToString();
         }
+
+        #endregion
     }
 }

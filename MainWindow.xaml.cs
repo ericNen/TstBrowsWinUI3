@@ -35,7 +35,7 @@ namespace TstBrowserWinUI3
         {
             this.InitializeComponent();
             ExtendsContentIntoTitleBar = true;
-            SetTitleBar(DragArea);
+            SetTitleBar(RightDragArea);
             TabControl.CanDragTabs = true;
             TabControl.TabDragCompleted += delegate (TabView sender, TabViewTabDragCompletedEventArgs e) { };
             AddTab(TabControl, null);

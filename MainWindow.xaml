@@ -10,7 +10,15 @@
     mc:Ignorable="d">
     <muxc:TabView Name="TabControl" AddTabButtonClick="AddTab" TabCloseRequested="CloseTab" VerticalAlignment="Stretch" Background="LightCyan">
         <muxc:TabView.TabStripFooter>
-            <Grid x:Name="DragArea" Background="Transparent" MinWidth="180"/>
+            <Grid x:Name="RightDragArea" Background="Transparent" MinWidth="180"/>
         </muxc:TabView.TabStripFooter>
+        <muxc:TabView.TabStripHeader>
+            <Button Name="TitleBarButton" Background="Black" Height="25" Width="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="2">
+                <Image Source="/Assets/Icn.ico" Height="20" Width="20"/>
+            </Button>
+            <!--Grid x:Name="LeftTitleBarArea" Background="White" Width="50" Height="30">
+
+            </Grid-->
+        </muxc:TabView.TabStripHeader>
     </muxc:TabView>
 </Window>
