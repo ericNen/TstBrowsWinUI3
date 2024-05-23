@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -44,26 +45,24 @@ namespace TstBrowserWinUI3
         
         public void AddTab(TabView Tabview, object arg)
         {
-            Console.WriteLine("AddTab Clicked");
             Frame TabFrame = new() {
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Name="Frame"
             };
-            TabFrame.Navigate(typeof(TabPage));
+            TabFrame.Navigate(typeof(TabPage),null,
+                new DrillInNavigationTransitionInfo());
             TabViewItem NewTab = new()
             {
                 Content = TabFrame,
                 Header = "New",
             };
             Tabview.TabItems.Add(NewTab);
-            Debug.WriteLine("New Tab Added");
             ReT();
         }
 
         public void CloseTab(TabView Tabview,TabViewTabCloseRequestedEventArgs arg)
         {
-            Console.WriteLine("Close Tab clicked");
             try
             {
                 Tabview.TabItems.Remove(arg.Tab);

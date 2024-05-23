@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
 	<WebsiteChoosingDatas id="WebsiteChoosingDatas">
-		<PlaceholdWebsite id="PlaceholdWebsite">https://www.google.com</PlaceholdWebsite>
+		<PlaceholdWebsite name="Google">https://www.google.com</PlaceholdWebsite>
 
 		<WebsiteList id="WebsiteList">
-			<a/>
-			<b/>
-			<c/>
-			<e/>
+			<Website name="Google" url="https://www.google.com"/>
+			<Website name="Bing" url="https://www.bing.com"/>
+			<Website name="Youtube" url="https://www.youtube.com"/>
+			<Website name="" url=""/>
 		</WebsiteList>
 	</WebsiteChoosingDatas>
 </data>

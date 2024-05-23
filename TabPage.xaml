@@ -40,7 +40,7 @@
             </SplitButton>
             <TextBox Grid.Column="4" x:Name="UrlBar" Margin="10"  PlaceholderText="Url Bar" VerticalAlignment="Center" HorizontalAlignment="Stretch" PreviewKeyDown="UrlBar_PreviewKeyDown" FocusVisualPrimaryThickness="2" BorderBrush="Blue" BorderThickness="1" />
             <AppBarButton Grid.Column="5" HorizontalAlignment="Center" Click="RunJavascript" Icon="Play" Foreground="Green"/>
-            <AppBarButton Grid.Column="6" Icon="GlobalNavigationButton" HorizontalAlignment="Center"/>
+            <AppBarButton Grid.Column="6" Icon="GlobalNavigationButton" HorizontalAlignment="Center" Click="MoreOption_Click"/>
         </Grid>
         <TextBlock Grid.Row="1" Name="OutPut" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <controls:WebView2 x:Name="Browser1" Source="https://www.bing.com" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" DefaultBackgroundColor="Black"/>

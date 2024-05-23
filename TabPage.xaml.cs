@@ -19,6 +19,7 @@ using Microsoft.UI.Input;
 using System.Threading;
 using System.Xml;
 using Windows.Storage.AccessCache;
+using System.Runtime.Remoting;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,52 +34,16 @@ namespace TstBrowserWinUI3
         public TabPage()
         {
             this.InitializeComponent();
-            AddWebsiteShortcut();
+            LoadWebsiteShortcut();
             BrowserControl();
         }
 
-        private void AddWebsiteShortcut()
-        {
-            WebsiteChoosing.Content = "Choose";
-            Flyout WebsiteChoosingOpt = new();
-            StackPanel Panel = new();
-            string CurrentDirPath = Windows.ApplicationModel.Package.Current.InstalledPath;
-            XmlDocument XmlData = new XmlDocument();
-            //XmlData.Load(Environment.CurrentDirectory.FirstOrDefault())
-
-            foreach (string item in Directory.EnumerateFiles(CurrentDirPath + "/Assets","*.xml"))
-            {
-                Button b = new()
-                {
-                    Content = item.ToString(),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Background = new SolidColorBrush(Colors.Gray)
-                };
-                Panel.Children.Insert(Panel.Children.Count,b);
-            }
-            WebsiteChoosingOpt.Content = Panel;
-            /*
-            Button button = new() {
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = new SolidColorBrush(Colors.Gray)
-            };
-            WebsiteChoosingOpt.Content = button; 
-            */
-            WebsiteChoosing.Flyout = WebsiteChoosingOpt;
-        }
         #region Browser
         async void BrowserControl()
         {
             await Browser1.EnsureCoreWebView2Async();
             Browser1.CoreWebView2.NewWindowRequested += NewWindowRequested;
             Browser1.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-            Thread.Sleep(100);
-            Debug.WriteLine($"{this.Name} : {this.Frame}");
-            try{
-                this.Frame.Name = "aaaal";
-            }catch(Exception ex) { Debug.WriteLine(ex.ToString()); }
         }
 
         private async void CoreWebView2_NavigationCompleted(CoreWebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
@@ -122,6 +87,31 @@ namespace TstBrowserWinUI3
         }
         #endregion
         #region AppBar & AppBar events
+        private void LoadWebsiteShortcut()
+        {
+            Flyout WebsiteChoosingOpt = new();
+            StackPanel Panel = new();
+            string CurrentDirPath = Windows.ApplicationModel.Package.Current.InstalledPath;
+            XmlDocument XmlData = new();
+            XmlData.Load(CurrentDirPath + "\\Assets\\XMLData.xml");
+            WebsiteChoosing.Content = XmlData.GetElementsByTagName("PlaceholdWebsite")[0].Attributes["name"].Value;
+            XmlNodeList a = XmlData.GetElementsByTagName("WebsiteList")[0].ChildNodes;
+            foreach (XmlNode item in a)
+            {
+                Button b = new()
+                {
+                    Content = item.Attributes["name"].Value.ToString(),
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Background = null
+                };
+                Panel.Children.Insert(Panel.Children.Count, b);
+            }
+            WebsiteChoosingOpt.Content = Panel;
+            WebsiteChoosing.Flyout = WebsiteChoosingOpt;
+        }
+
         private async void Back(object sender, RoutedEventArgs e)
         {
             await Browser1.EnsureCoreWebView2Async();
@@ -161,11 +151,18 @@ namespace TstBrowserWinUI3
             */
         }
 
-        private int count = 0;
         private void WebsiteChoosing_Click(SplitButton sender, SplitButtonClickEventArgs args)
         {
-            count++;
-            OutPut.Text=count.ToString();
+            string CurrentDirPath = Windows.ApplicationModel.Package.Current.InstalledPath;
+            XmlDocument XmlData = new();
+            XmlData.Load(CurrentDirPath + "\\Assets\\XMLData.xml");
+            var link= XmlData.GetElementsByTagName("PlaceholdWebsite")[0].InnerText;
+            NavigateUrl(link);
+        }
+
+        private void MoreOption_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #endregion
