@@ -13,5 +13,7 @@ This app is written and built in Windows 11. Though most of the functions in win
 ### App
 
 ### MainWindow
+Provides a window with TabView in it. Stores some cross-page properties(eg Is setting page opened)
 
-### Tabpage
+### TabPage
+Things inside each tabs goes here. Will be created as a new and independent tab every time you add a new tab.
