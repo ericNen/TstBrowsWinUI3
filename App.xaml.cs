@@ -19,6 +19,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.WindowManagement;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -43,14 +44,16 @@ namespace TstBrowserWinUI3
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
+        /// 
+        public static MainWindow m_window;
+        public static AppWindow AW;
+
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
-            m_window.AppWindow.TitleBar.BackgroundColor = Colors.Black;
-            m_window.AppWindow.TitleBar.ButtonForegroundColor = Colors.Black;
-            m_window.AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            m_window.AppWindow.SetIcon("D:\\Eric\\TstBrowserWinUI3\\Assets\\Icn.ico");
+            //m_window.TitleBar.BackgroundColor = Colors.Black;
             m_window.Activate();
         }
-        internal Window m_window;
     }
 }

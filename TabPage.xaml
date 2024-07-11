@@ -13,11 +13,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition x:Name="MainColumn0"  Width="0"/>
+            <ColumnDefinition x:Name="MainColumn1" Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition x:Name="TopBar" Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="2">
@@ -28,21 +28,49 @@
                 <ColumnDefinition x:Name="WebsiteChoosingArea" Width="110"/>
                 <ColumnDefinition x:Name="UrlBarArea" Width="*"/>
                 <ColumnDefinition x:Name="ExeScript" Width="30"/>
+                <ColumnDefinition x:Name="Download" Width="30"/>
+                <ColumnDefinition x:Name="Pause" Width="30"/>
                 <ColumnDefinition x:Name="More" Width="30"/>
             </Grid.ColumnDefinitions>
-            <AppBarButton Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Center" Icon="Back" Click="Back"/>
-            <AppBarButton Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Icon="Forward" Click="Forward"/>
+
+            <AppBarButton  Name="BackBut" IsEnabled="False"  VerticalAlignment="Stretch" HorizontalAlignment="Center" Icon="Back" Click="Back"/>
+            <AppBarButton Grid.Column="1" Name="ForwardBut" IsEnabled="False"  VerticalAlignment="Stretch" HorizontalAlignment="Center" Icon="Forward" Click="Forward"/>
+
             <AppBarButton Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Icon="Refresh" Click="Reload"/>
-            <SplitButton Grid.Column="3" Name="WebsiteChoosing" Click="WebsiteChoosing_Click" HorizontalAlignment="Center" PointerEntered="WebsiteChoosing_PointerEntered" BorderBrush="Black" BorderThickness="1">
+            <SplitButton Grid.Column="3" Name="WebsiteChoosing" Click="WebsiteChoosing_Click" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1">
                 <SplitButton.Flyout>
                     <Flyout Placement="Bottom"/>
                 </SplitButton.Flyout>
             </SplitButton>
-            <TextBox Grid.Column="4" x:Name="UrlBar" Margin="10"  PlaceholderText="Url Bar" VerticalAlignment="Center" HorizontalAlignment="Stretch" PreviewKeyDown="UrlBar_PreviewKeyDown" FocusVisualPrimaryThickness="2" BorderBrush="Blue" BorderThickness="1" />
-            <AppBarButton Grid.Column="5" HorizontalAlignment="Center" Click="RunJavascript" Icon="Play" Foreground="Green"/>
-            <AppBarButton Grid.Column="6" Icon="GlobalNavigationButton" HorizontalAlignment="Center" Click="MoreOption_Click"/>
+            <TextBox Grid.Column="4" x:Name="UrlBar" Margin="10"  PlaceholderText="Url Bar" VerticalAlignment="Center" 
+                     HorizontalAlignment="Stretch" PreviewKeyDown="UrlBar_PreviewKeyDown" 
+                     BorderBrush="Blue" BorderThickness="1" FocusEngaged="UrlBar_Clicked"/>
+            <AppBarButton Grid.Column="5" Name="ExecuteScript" HorizontalAlignment="Center" Click="RunJavascript" Foreground="Blue"/>
+            <AppBarButton Grid.Column="6" Name="Downloads" HorizontalAlignment="Center" Icon="Download"  Foreground="Black"/>
+            <AppBarButton Grid.Column="7" Name="StartStopNavigation" Icon="Pause" Foreground="Red" HorizontalAlignment="Center"  Click="StartPauseNavigation"/>
+            <AppBarButton Grid.Column="8" Name ="MoreOption" Icon="GlobalNavigationButton" HorizontalAlignment="Center" Click="MoreOption_Click">
+                <AppBarButton.Flyout>
+                    <MenuFlyout Placement="BottomEdgeAlignedRight" x:Name="MenuFlyout">
+                        <MenuFlyoutItem Name="NewTab" Text="New Tab" Icon="Add" Click="AddPage"/>
+                        <MenuFlyoutSeparator Background="Red" Width="170"/>
+                        <MenuFlyoutItem Name="fullScreen" Text="Full screen" Click="Full_Screen"/>
+                        <MenuFlyoutSeparator Background="Blue" Width="170"/>
+                        <MenuFlyoutItem Name="Setting" Text="Setting" Icon="Setting" Width="200" Click="OpenSettingPage"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            
+           
         </Grid>
-        <TextBlock Grid.Row="1" Name="OutPut" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <controls:WebView2 x:Name="Browser1" Source="https://www.bing.com" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" DefaultBackgroundColor="Black"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <ToggleButton Name ="ShowSideBar" Background="LightGray" Click="ShowSideBarL"/>
+            <TextBlock  Name="OutPut" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MaxLines="100" Grid.Row="1"/>
+        </Grid>
+        <controls:WebView2 x:Name="Browser1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </Page>

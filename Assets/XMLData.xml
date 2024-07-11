@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<WebsiteChoosingDatas id="WebsiteChoosingDatas">
-		<PlaceholdWebsite name="Google">https://www.google.com</PlaceholdWebsite>
+	<HomePage>https://www.google.com/</HomePage>
 
-		<WebsiteList id="WebsiteList">
-			<Website name="Google" url="https://www.google.com"/>
-			<Website name="Bing" url="https://www.bing.com"/>
-			<Website name="Youtube" url="https://www.youtube.com"/>
-			<Website name="" url=""/>
+	<WebsiteChoosingDatas>
+		<PlaceholdWebsite name="Google">https://www.google.com/</PlaceholdWebsite>
+
+		<WebsiteList>
+			<Google url="https://www.google.com/"/>
+			<Bing url="https://www.bing.com/"/>
+			<Youtube url="https://www.youtube.com/"/>
+			<Rickroll url="https://youtu.be/dQw4w9WgXcQ/"/>
 		</WebsiteList>
 	</WebsiteChoosingDatas>
 </data>
