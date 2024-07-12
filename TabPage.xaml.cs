@@ -52,16 +52,26 @@ namespace TstBrowserWinUI3
 
             WebsiteChoosing.Content = App.m_window.PlaceholdWebsite;
 
-            if (Frame.Name != "Normal")
-            {
-                IsNew = false;
-                NavigateUrl(Frame.Name);
-            }
-            else
-            {
-                NavigateUrl(App.m_window.HomepageUrl);
-                UrlBar.Focus(FocusState.Programmatic);
-            }
+            switch (Frame.Name){
+                case "Normal":
+                    NavigateUrl(App.m_window.HomepageUrl);
+                    UrlBar.Focus(FocusState.Programmatic);
+                    break;
+                case "Setting":
+                    App.m_window.IsSettingPageOpened = true;
+                    NavigateUrl("");
+                    break;
+                case "Favorites":
+                    NavigateUrl("");
+                    break;
+                case "History":
+                    NavigateUrl("");
+                    break;
+                default:
+                    IsNew = false;
+                    NavigateUrl(Frame.Name);
+                    break;
+            };
 
             Downloads.Flyout = App.m_window.DownloadFlyout;
 
@@ -137,7 +147,7 @@ namespace TstBrowserWinUI3
 
         private void CoreWebView2_DownloadStarting(CoreWebView2 sender, CoreWebView2DownloadStartingEventArgs args)
         {
-            MenuFlyoutItem New = new() { Text = args.DownloadOperation.Uri };
+            MenuFlyoutItem New = new() { Text = args.DownloadOperation.ToString() };
             App.m_window.DownloadFlyout.Items.Add(New);
         }
 
@@ -237,8 +247,8 @@ namespace TstBrowserWinUI3
                     NavigateUrl(UrlBar.Text);
                 }else {
                     string ProcessedString = HttpUtility.UrlEncode(UrlBar.Text);
-                    string NewString = ProcessedString.Replace(' ', '+'); ;
-                    NavigateUrl("https://www.bing.com/search?q=" + NewString); 
+                    string NewString = ProcessedString.Replace(' ', '+');
+                    NavigateUrl(App.m_window.SearchEngineWebsite + NewString); 
                 }
                 Browser1.Focus(FocusState.Programmatic);
             }

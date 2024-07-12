@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="PreferenceSetting.xaml" />
-    <None Remove="SettingPage.xaml" />
     <None Remove="TabPage.xaml" />
   </ItemGroup>
 
@@ -73,16 +72,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\XMLData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Update="PreferenceSetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="SettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

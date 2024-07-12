@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
 	<HomePage>https://www.google.com/</HomePage>
+	<SearchEngine>https://www.bing.com/search?q=</SearchEngine>
 
 	<WebsiteChoosingDatas>
 		<PlaceholdWebsite name="Google">https://www.google.com/</PlaceholdWebsite>
@@ -10,6 +11,8 @@
 			<Bing url="https://www.bing.com/"/>
 			<Youtube url="https://www.youtube.com/"/>
 			<Rickroll url="https://youtu.be/dQw4w9WgXcQ/"/>
+			<MauiControl url="https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/?view=net-maui-8.0"/>
+			<MauiControlClass url="https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls?view=net-maui-8.0"/>
 		</WebsiteList>
 	</WebsiteChoosingDatas>
 </data>

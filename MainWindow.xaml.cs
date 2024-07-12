@@ -38,6 +38,7 @@ namespace TstBrowserWinUI3
         public MenuFlyout MoreOptionFlyout;
         public TabViewListView tabViewListView;
         public string HomepageUrl;
+        public string SearchEngineWebsite;
 
         public MainWindow()
         {
@@ -102,6 +103,7 @@ namespace TstBrowserWinUI3
             HomepageUrl = XmlData.GetElementsByTagName("HomePage")[0].InnerText;
             PlaceholdWebsite = XmlData.GetElementsByTagName("PlaceholdWebsite")[0].Attributes["name"].Value;
             PlaceholdWebsiteUrl = XmlData.GetElementsByTagName("PlaceholdWebsite")[0].InnerText;
+            SearchEngineWebsite = XmlData.GetElementsByTagName("SearchEngine")[0].InnerText;
 
             foreach (XmlNode item in a)
             {
@@ -196,6 +198,7 @@ namespace TstBrowserWinUI3
             {
                 Content = TabFrame
             };
+            /*
             if (Arg == "Setting")
             {
                 NewTab.Header = "Setting"; 
@@ -204,7 +207,9 @@ namespace TstBrowserWinUI3
                 IsSettingPageOpened = true;
                 NewTab.CloseRequested += (tabview, args) => { IsSettingPageOpened = false; };
             }
-            else { NewTab.Header = "New"; TabFrame.Navigate(typeof(TabPage)); };
+            
+            else {*/
+            NewTab.Header = "New"; TabFrame.Navigate(typeof(TabPage));
             TabControl.TabItems.Add(NewTab);
             TabControl.SelectedItem = NewTab;
         }
